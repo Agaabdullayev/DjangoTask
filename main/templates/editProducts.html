@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Price</title>
+</head>
+<body>
+    <h2>Update Product Price</h2>
+
+    <form action="{% url 'updatePrices' dataPrices.first.products_id %}" method="post">
+        {% csrf_token %}
+        Product Price: <br>
+        <input type="number" name="updatePrice" value="{{dataPrices.first.productsPrice}}"> <br><br>
+        <button>Update</button>
+        <td><a href="{% url 'products' %}"><button type="button">Back</button></a></td>
+    </form>
+
+    <br><br>
+
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Price</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for info in dataPrices %}
+                <tr>
+                    <td><b>{{forloop.counter}}.</b></td>
+                    <td>{{info.productsPrice}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

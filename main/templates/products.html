@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+</head>
+<body>
+    <h2>Products</h2>
+
+    <form action="{% url 'products' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        Product Image: <br>
+        <input type="file" name="productsImage"> <br>
+        Product Name: <br>
+        <input type="text" name="productsName"> <br>
+        Product Price: <br>
+        <input type="number" name="productsPrice"> <br>
+        Product Category: <br>
+        <select name="productsCategory">
+            <option value="">--Select--</option>
+            {% for info in dataCategory%}
+                <option value="{{info.id}}">{{info.categoryName}}</option>
+            {% endfor %}
+        </select> <br>
+        Product Description: <br>
+        <textarea name="productsDescription" cols="25" rows="5"></textarea> <br><br>
+        <button>Add</button>
+    </form>
+
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Category</th>
+            <th>Description</th>
+        </thead>
+        <tbody>
+            {% for info in dataProducts %}
+                <tr>
+                    <td><b>{{forloop.counter}}.</b></td>
+                    <td><img src="{{ info.images.last.productsImage.url }}" height="100"></td>
+                    <td>{{info.productsName}}</td>
+                    <td>{{info.prices.last.productsPrice}}</td>
+                    <td>{{info.productsCategory.categoryName}}</td>
+                    <td>{{info.productsDescription}}</td>
+                    <td><a href="{% url 'editProducts' info.id %}"><button type="button">Update Price</button></a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category</title>
+</head>
+<body>
+    <h2>Category</h2>
+
+    <form action="{% url 'category' %}" method="POST">
+        {% csrf_token %}
+        Category: <br>
+        <input type="text" name="categoryName"> <br><br>
+        <button>Add</button>
+    </form>
+
+    <table>
+        <thead>
+            <th>#</th>
+            <th>Category Name</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for info in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{info.categoryName}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
